@@ -1,9 +1,18 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
 @Entity
+@Table(name = "leave_application")
 public class LeaveApplication {
 
     @Id
@@ -11,8 +20,13 @@ public class LeaveApplication {
     private Long id;
 
     private String leaveType;
+
+    @Column(name = "from_date")  // Renamed to avoid SQL reserved keyword
     private LocalDate fromDate;
+
+    @Column(name = "to_date")    // Renamed to avoid SQL reserved keyword
     private LocalDate toDate;
+
     private String reason;
     private String status; // PENDING, APPROVED, REJECTED
     private int hoursTaken;
@@ -82,12 +96,11 @@ public class LeaveApplication {
         return employee != null ? employee.getId() : null;
     }
 
-    // Static builder() method
+    // Builder pattern
     public static Builder builder() {
         return new Builder();
     }
 
-    // Manual Builder pattern
     public static class Builder {
         private Long id;
         private String leaveType;

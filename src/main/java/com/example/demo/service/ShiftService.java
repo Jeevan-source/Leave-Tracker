@@ -21,11 +21,6 @@ public class ShiftService {
 
     private final ShiftAssignmentRepository shiftAssignmentRepository;
     private final AttendanceRepository attendanceRepository;
-    public ShiftService(AttendanceRepository attendanceRepository,
-            ShiftAssignmentRepository shiftAssignmentRepository) {
-this.attendanceRepository = attendanceRepository;
-this.shiftAssignmentRepository = shiftAssignmentRepository;
-}
 
     // Get Shift Calendar data for a specific employee
     public List<ShiftCalendarDTO> getShiftCalendar(Long empId, LocalDate start, LocalDate end) {
@@ -34,9 +29,7 @@ this.shiftAssignmentRepository = shiftAssignmentRepository;
             ShiftCalendarDTO dto = new ShiftCalendarDTO();
             dto.setDate(shift.getDate());
             dto.setShiftName(shift.getShift().getName());
-            dto.setShiftTiming(
-                shift.getShift().getStartTime() + " - " + shift.getShift().getEndTime()
-            );
+            dto.setShiftTiming(shift.getShift().getStartTime() + " - " + shift.getShift().getEndTime());
             return dto;
         }).collect(Collectors.toList());
     }
@@ -50,14 +43,13 @@ this.shiftAssignmentRepository = shiftAssignmentRepository;
             dto.setPresent(att.isPresent());
             dto.setInTime(att.getInTime());
             dto.setOutTime(att.getOutTime());
-            dto.setShiftName(att.getDayType() != null ? att.getDayType().toString() : ""); // null safety
+            dto.setShiftName(att.getDayType() != null ? att.getDayType().toString() : "");
             return dto;
         }).collect(Collectors.toList());
     }
 
     // Placeholder method for future shift calendar logic
     public List<ShiftCalendarDTO> getShiftCalendarData(LocalDate fromDate, LocalDate toDate) {
-        // Implement logic here as per your use case
         return List.of(); // Return empty list as default
     }
 }

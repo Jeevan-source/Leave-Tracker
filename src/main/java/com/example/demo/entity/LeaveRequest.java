@@ -1,17 +1,24 @@
 package com.example.demo.entity;
 
-    
+import java.time.LocalDate;
 
 import com.example.demo.enums.LeaveStatus;
 
-import jakarta.persistence.*;
-import lombok.*;
-import java.time.LocalDate;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-
 public class LeaveRequest {
 
     @Id
@@ -19,9 +26,12 @@ public class LeaveRequest {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "leave_type_id") 
-    
+    @JoinColumn(name = "leave_type_id")
     private LeaveType leaveType;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(nullable = false)
     private LocalDate startDate;
@@ -35,13 +45,11 @@ public class LeaveRequest {
     private String reason;
 
     private LocalDate createdAt;
+
     @Enumerated(EnumType.STRING)
     private LeaveStatus status;
 
-    // Add setter
     public void setStatus(LeaveStatus status) {
         this.status = status;
     }
 }
-
-
