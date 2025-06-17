@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Dto.LoginRequest;
 import com.example.demo.entity.User;
 import com.example.demo.security.JwtUtil;
+import com.example.demo.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
