@@ -21,27 +21,29 @@ public class LeaveApplication {
 
     private String leaveType;
 
-    @Column(name = "from_date")  // Renamed to avoid SQL reserved keyword
+    @Column(name = "from_date")
     private LocalDate fromDate;
 
-    @Column(name = "to_date")    // Renamed to avoid SQL reserved keyword
+    @Column(name = "to_date")
     private LocalDate toDate;
 
     private String reason;
-    private String status; // PENDING, APPROVED, REJECTED
+
+    private String status;
     private int hoursTaken;
+
     private LocalDate requestDate;
-    private String operation; // Add/Update/Delete
+
+    private String operation;
+
     private String teamEmailId;
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    // No-args constructor
     public LeaveApplication() {}
 
-    // All-args constructor
     public LeaveApplication(Long id, String leaveType, LocalDate fromDate, LocalDate toDate, String reason,
                             String status, int hoursTaken, LocalDate requestDate, String operation,
                             String teamEmailId, Employee employee) {
@@ -96,7 +98,6 @@ public class LeaveApplication {
         return employee != null ? employee.getId() : null;
     }
 
-    // Builder pattern
     public static Builder builder() {
         return new Builder();
     }
@@ -114,64 +115,21 @@ public class LeaveApplication {
         private String teamEmailId;
         private Employee employee;
 
-        public Builder id(Long id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder leaveType(String leaveType) {
-            this.leaveType = leaveType;
-            return this;
-        }
-
-        public Builder fromDate(LocalDate fromDate) {
-            this.fromDate = fromDate;
-            return this;
-        }
-
-        public Builder toDate(LocalDate toDate) {
-            this.toDate = toDate;
-            return this;
-        }
-
-        public Builder reason(String reason) {
-            this.reason = reason;
-            return this;
-        }
-
-        public Builder status(String status) {
-            this.status = status;
-            return this;
-        }
-
-        public Builder hoursTaken(int hoursTaken) {
-            this.hoursTaken = hoursTaken;
-            return this;
-        }
-
-        public Builder requestDate(LocalDate requestDate) {
-            this.requestDate = requestDate;
-            return this;
-        }
-
-        public Builder operation(String operation) {
-            this.operation = operation;
-            return this;
-        }
-
-        public Builder teamEmailId(String teamEmailId) {
-            this.teamEmailId = teamEmailId;
-            return this;
-        }
-
-        public Builder employee(Employee employee) {
-            this.employee = employee;
-            return this;
-        }
+        public Builder id(Long id) { this.id = id; return this; }
+        public Builder leaveType(String leaveType) { this.leaveType = leaveType; return this; }
+        public Builder fromDate(LocalDate fromDate) { this.fromDate = fromDate; return this; }
+        public Builder toDate(LocalDate toDate) { this.toDate = toDate; return this; }
+        public Builder reason(String reason) { this.reason = reason; return this; }
+        public Builder status(String status) { this.status = status; return this; }
+        public Builder hoursTaken(int hoursTaken) { this.hoursTaken = hoursTaken; return this; }
+        public Builder requestDate(LocalDate requestDate) { this.requestDate = requestDate; return this; }
+        public Builder operation(String operation) { this.operation = operation; return this; }
+        public Builder teamEmailId(String teamEmailId) { this.teamEmailId = teamEmailId; return this; }
+        public Builder employee(Employee employee) { this.employee = employee; return this; }
 
         public LeaveApplication build() {
-            return new LeaveApplication(id, leaveType, fromDate, toDate, reason, status, hoursTaken,
-                                        requestDate, operation, teamEmailId, employee);
+            return new LeaveApplication(id, leaveType, fromDate, toDate, reason, status,
+                    hoursTaken, requestDate, operation, teamEmailId, employee);
         }
     }
 }

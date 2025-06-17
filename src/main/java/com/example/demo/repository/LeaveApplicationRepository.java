@@ -9,6 +9,5 @@ import com.example.demo.entity.LeaveApplication;
 
 @Repository
 public interface LeaveApplicationRepository extends JpaRepository<LeaveApplication, Long> {
-
     List<LeaveApplication> findByEmployee_Id(Long employeeId);
 }

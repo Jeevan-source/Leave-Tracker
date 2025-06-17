@@ -30,43 +30,43 @@ public class JwtUtil {
 		return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
 	}
 
-	// Generate JWT token
+	
 	public String generateToken(Authentication authentication) {
 		String username = authentication.getName();
 
-		// Get roles from authorities
+		
 		List<String> roles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
 
-		// Create claims
+		
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("roles", roles);
 
-		return Jwts.builder().claims(claims) // Add custom claims
-				.subject(username) // Set the subject (username)
-				.issuedAt(new Date()) // Set issue date
-				.expiration(new Date(System.currentTimeMillis() + expirationTime)) // Set expiration date
-				.signWith(getSigningKey()) // FIX: Removed MacAlgorithm parameter
+		return Jwts.builder().claims(claims)
+				.subject(username)
+				.issuedAt(new Date())
+				.expiration(new Date(System.currentTimeMillis() + expirationTime))
+				.signWith(getSigningKey())
 				.compact();
 	}
 
-	// Extract claims from token
+	
 	public Claims extractClaims(String token) {
-		return Jwts.parser() // Use the new parser method
-				.verifyWith(getSigningKey()) // Corrected method for signature verification
-				.build().parseSignedClaims(token) // New method for parsing signed claims
-				.getPayload(); // Retrieve the claims
+		return Jwts.parser() 
+				.verifyWith(getSigningKey())
+				.build().parseSignedClaims(token) 
+				.getPayload(); 
 	}
 
 	public String extractUsername(String token) {
 		return extractClaims(token).getSubject();
 	}
 
-	// Method to validate JWT (optional)
+	
 	public boolean validateToken(String token) {
 		return !isTokenExpired(token);
 	}
 
-	// Method to check if token is expired
+	
 	private boolean isTokenExpired(String token) {
 		return extractClaims(token).getExpiration().before(new Date(System.currentTimeMillis()));
 	}

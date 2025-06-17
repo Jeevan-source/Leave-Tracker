@@ -42,6 +42,10 @@ public class User implements UserDetails {
 		return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.toString()));
 	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub

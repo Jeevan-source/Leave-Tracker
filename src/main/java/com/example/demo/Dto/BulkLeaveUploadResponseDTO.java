@@ -15,6 +15,6 @@ public class BulkLeaveUploadResponseDTO {
         this.errorMessages = errorMessages;
     }
 
-   
+
 }
 
